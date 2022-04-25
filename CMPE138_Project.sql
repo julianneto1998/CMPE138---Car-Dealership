@@ -6,7 +6,7 @@ use dealership;
 
 create table dealership_worker 
 	(
-		d_name 		varchar(25) not null,
+		d_name 	varchar(25) not null,
         d_username  varchar(25) not null,
         d_password	varchar(25) not null,
         d_email		varchar(25) not null,
