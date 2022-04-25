@@ -7,10 +7,10 @@ use dealership;
 create table dealership_worker 
 	(
 	d_name 		varchar(25) not null,
-        d_username  	varchar(25) not null,
-        d_password	varchar(25) not null,
-        d_email		varchar(25) not null,
-        d_ssn		char(9) not null,
+	d_username  varchar(25) not null,
+	d_password	varchar(25) not null,
+	d_email		varchar(25) not null,
+    d_ssn		char(9) not null,
 	dept_name	varchar(20), -- management, sales, service
         primary key (d_ssn, d_username, d_email)
 	);
