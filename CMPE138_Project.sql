@@ -6,18 +6,18 @@ use dealership;
 
 create table dealership_worker 
 	(
-		d_name 	varchar(25) not null,
-        d_username  varchar(25) not null,
+	d_name 		varchar(25) not null,
+        d_username  	varchar(25) not null,
         d_password	varchar(25) not null,
         d_email		varchar(25) not null,
         d_ssn		char(9) not null,
-		dept_name	varchar(20), -- management, sales, service
+	dept_name	varchar(20), -- management, sales, service
         primary key (d_ssn, d_username, d_email)
 	);
     
 create table worker_phones
 	(
-		worker_ssn		char(9) not null, 
+	worker_ssn	char(9) not null, 
         worker_phone	varchar(14) not null,
         primary key (worker_ssn, worker_phone), 
         foreign key (worker_ssn) references dealership(ssn)
@@ -25,8 +25,8 @@ create table worker_phones
 
 create table vehicle 
 	(
-		vin			char(17) not null,
-		vehi_cond	varchar(10), -- 'excellent', 'very good', 'good', 'fair',
+	vin		char(17) not null,
+	vehi_cond	varchar(10), -- 'excellent', 'very good', 'good', 'fair',
         price		numeric(10,2) check (price > 0),
         size		varchar(10), -- 'coupe', 'sedan', 'crossover, 'suv', 'truck'
         make		varchar(10) not null,
@@ -37,7 +37,7 @@ create table vehicle
     
 create table vehicle_color
 	(
-		vin			char(17) not null, 
+	vin		char(17) not null, 
         color		varchar(10),
         primary key (vin, color),
         foreign key (vin) references vehicle(vin)
@@ -45,16 +45,16 @@ create table vehicle_color
 
 create table customer 
 	(
-		c_name		varchar(25) not null,
-		c_username	varchar(9) not null,
+	c_name		varchar(25) not null,
+	c_username	varchar(9) not null,
         c_password	varchar(25) not null,
         c_email		varchar(20) not null,
-		primary key (c_username,c_email)
+	primary key (c_username,c_email)
 	);
     
 create table customer_phones
 	(
-		customer_name 	varchar(25) not null,
+	customer_name 	varchar(25) not null,
         phone			varchar(14) not null,
         primary key (customer_name, phone),
         foreign key (customer_name) references customer(c_username)
@@ -62,16 +62,16 @@ create table customer_phones
 
 create table manager 
 	(
-		m_ssn		char(9) not null,
-		dept_manage	varchar (20), -- management, sales, service
+	m_ssn		char(9) not null,
+	dept_manage	varchar (20), -- management, sales, service
         primary key (m_ssn),
         foreign key (m_ssn) references dealership(ssn)
 	);
 
 create table salesperson 
 	(
-		s_ssn		char(9) not null,
-		s_manager	char(25) not null,
+	s_ssn		char(9) not null,
+	s_manager	char(25) not null,
         primary key (s_ssn),
         foreign key (s_ssn) references dealership(d_ssn), 
         foreign key (s_manager) references manager(m_ssn)
@@ -79,22 +79,22 @@ create table salesperson
 
 create table service_advisor 
 	(
-		a_ssn		char(9) not null,
-		a_manager	char(25) not null,
+	a_ssn		char(9) not null,
+	a_manager	char(25) not null,
         primary key (a_ssn),
-		foreign key (a_ssn) references dealership(d_ssn),
+	foreign key (a_ssn) references dealership(d_ssn),
         foreign key (a_manager) references manager(m_ssn)
 	);
 
 create table sales_contract 
 	(
-		sale_id		varchar(5),
-		vin			numeric(17),
-		sale_price	numeric(10,2) check (sale_price > 0),
-		sale_date	DATE,
-		seller		varchar(25),
+	sale_id		varchar(5),
+	vin		numeric(17),
+	sale_price	numeric(10,2) check (sale_price > 0),
+	sale_date	DATE,
+	seller		varchar(25),
         customer	varchar(25),
-		primary key (sale_id, vin),
+	primary key (sale_id, vin),
         foreign key (vin) references vehicle(vin),
         foreign key (seller) references salesperson(s_ssn),
         foreign key (customer) references customer(c_username)
@@ -102,13 +102,13 @@ create table sales_contract
 
 create table service_contract 
 	(
-		sdate		DATE,
-		sprice		numeric(10,2) check (sprice > 0),
-		service_id	varchar(5),
+	sdate		DATE,
+	sprice		numeric(10,2) check (sprice > 0),
+	service_id	varchar(5),
         customer	varchar(25),
         vin			numeric(17),
         servicer	varchar(25),
-		primary key (service_id),
+	primary key (service_id),
         foreign key (customer) references customer(c_username),
         foreign key (vin) references vehicle(vin), 
         foreign key (servicer) references service_advisor(a_ssn)
